@@ -11,6 +11,7 @@ export default function LoginPage() {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [session, setSession] = useState<any>(null);
+  const [origin, setOrigin] = useState<string>('');
 
   useEffect(() => {
     // On mount, check existing session
@@ -35,8 +36,15 @@ export default function LoginPage() {
       }
     });
 
+    // Get window.location.origin only on client
+    if (typeof window !== 'undefined') {
+      setOrigin(window.location.origin);
+    }
+
     return () => subscription.unsubscribe();
   }, [router, supabase]);
+
+  const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL || origin}/`;
 
   return (
     <>
@@ -62,7 +70,7 @@ export default function LoginPage() {
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
             providers={['google']}
-            redirectTo={`${process.env.NEXT_PUBLIC_BASE_URL || window.location.origin}/`}
+            redirectTo={redirectUrl}
           />
 
           {/* Show session info if available */}
