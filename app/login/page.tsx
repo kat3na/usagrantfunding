@@ -67,11 +67,11 @@ export default function LoginPage() {
           <h2 className="text-2xl font-bold text-center mb-4">Login to Grant App</h2>
 
           <Auth
-            supabaseClient={supabase}
-            appearance={{ theme: ThemeSupa }}
-            providers={['google']}
-            redirectTo={redirectUrl}
-          />
+  supabaseClient={supabase}
+  appearance={{ theme: ThemeSupa }}
+  providers={['google']}
+  redirectTo={`${process.env.NEXT_PUBLIC_BASE_URL || window.location.origin}/`}
+/>
 
           {/* Show session info if available */}
           {session?.user && (
