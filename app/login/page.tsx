@@ -37,8 +37,8 @@ export default function LoginPage() {
     });
 
     // Get window.location.origin only on client
-    if (typeof window !== 'undefined') {
-      setOrigin(window.location.origin);
+    if (typeof window !== "undefined") {
+  userAgent = window.navigator.userAgent;
     }
 
     return () => subscription.unsubscribe();
